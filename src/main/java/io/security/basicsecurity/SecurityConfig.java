@@ -125,11 +125,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.deleteCookies("remember-me");		//로그인 시 remember-me이름으로 쿠키발급됨 - 삭제하기
 		
 		
+		
+		/*
+		 * < SessionManagementFilter >
+		 */
+		
 		// * 동시 세션 제어 
-//		http
-//			.sessionManagement()
-//				.maximumSessions(1) 					// 최대 허용가능 세션 수, -1이면 무제한
-//				.maxSessionsPreventsLogin(false)		// 동시 로그인 차단함. true일 시 로그인도 불가능. false일 시 먼저 로그인한 계정 session 만료뜸. default: false(기존 세션 만료)
+		http
+			.sessionManagement()
+				.maximumSessions(1) 					// 최대 허용가능 세션 수, -1이면 무제한
+				.maxSessionsPreventsLogin(false);		// 동시 로그인 차단함. true일 시 로그인도 불가능. false일 시 먼저 로그인한 계정 session 만료뜸. default: false(기존 세션 만료)
 //				.invalidSessionUrl("/invalid")		// 세션이 유효하지 않을 때 이동할 페이지
 //				.expiredUrl("/expired");				// 세션이 만료된 경우 이동할 페이지
 				
@@ -155,6 +160,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// => stateless 사용 : session cookie가 아니고 session을 사용하지 않을 때.
 				// 	  ex) json web token(JWT)사용 시. 토큰에 사용자정보 등 저장하고 세션없이 인증받는 방식
 		
-		}
+		
+		/*
+		 *  < ConcurrentSessionFilter > 
+		 *   : 동시적 세션 제어를 위해 sessionManagementFilter와 연계
+		 */
+		
+		
+	
+	}
 
 }
